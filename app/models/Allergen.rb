@@ -2,7 +2,7 @@ class Allergen
 
   @@all = []
 
-  attr_reader :users, :ingredient 
+  attr_reader :users, :ingredient
 
   def initialize(users = [], ingredient)
     @users = users

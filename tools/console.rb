@@ -28,3 +28,6 @@ lactose_intolerance = Allergen.new(users = [sandy], milk)
 gluten_allergy = Allergen.new(users = [tashawn, andrew], wheat)
 peanut_allergy = Allergen.new(users = [david, andrew], peanuts)
 binding.pry
+sandy.add_recipe_card(peanut_butter_cookies, "0/0/00", 1)
+rc = RecipeCard.all
+print rc

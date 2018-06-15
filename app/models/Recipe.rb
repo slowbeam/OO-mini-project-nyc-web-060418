@@ -26,9 +26,42 @@ class Recipe
   end
 
   def users
-    RecipeCard.all.select do |recipe_card|
-      binding.pry
+    users_array = []
+    matching_recipe_cards = RecipeCard.all.select do |recipe_card|
       recipe_card.recipe == self
+    end
+    matching_recipe_cards.each do |card|
+    users_array << card.users
+    end
+    users_array.flatten.uniq
+  end
+
+  def ingredients
+      #match current recipe to RecipeIngredient instance
+    matching_rec_ing = RecipeIngredient.all.select do |recipe_ing|
+      self == recipe_ing.recipe
+    end
+    matching_rec_ing[0].ingredients
+  end
+
+  def allergens
+    allerg_array = Allergen.all.map do |allergen|
+      allergen.ingredient
+    end
+
+    self.ingredients.select do |ing|
+      allerg_array.include?(ing)
+    end
+  end
+
+  def add_ingredients(new_ing)
+    #find the RecipeIngredient instance that matches this recipe
+    matching_rec_ing = RecipeIngredient.all.select do |recipe_ing|
+      self == recipe_ing.recipe
+    end
+
+    new_ing.each do |ing|
+    matching_rec_ing[0].ingredients << ing
     end
   end
 
